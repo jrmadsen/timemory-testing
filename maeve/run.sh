@@ -4,8 +4,8 @@ WORKING_DIR=$(dirname ${BASH_SOURCE[0]})
 
 . ${WORKING_DIR}/functions.sh
 
-COMMON_ARGS="--papi --python --likwid --mpi --mpip --cuda --cupti --nvtx --gotcha --developer --dyninst --caliper --extra-optimizations --tools --profile cpu -SF "
-CTEST_ARGS="-V"
+COMMON_ARGS="--papi --python --likwid --mpi --mpip --cuda --cupti --nvtx --gotcha --dyninst --caliper --extra-optimizations --tools --profile cpu -SF "
+CTEST_ARGS="-VV"
 CMAKE_ARGS="-DPYTHON_EXECUTABLE=$(which python) -G Ninja"
 
 : ${BRANCH:=develop}
@@ -23,7 +23,7 @@ do
     export CXX=$(which clang++-${i})
     if [ -z "${CC}" ]; then continue; fi
     if [ -z "${CXX}" ]; then continue; fi
-    python ./pyctest-runner.py ${COMMON_ARGS} -- ${CTEST_ARGS} -- ${CMAKE_ARGS}
+    python ./pyctest-runner.py ${COMMON_ARGS} -- ${CTEST_ARGS} -- ${CMAKE_ARGS} -DCMAKE_CXX_EXTENSIONS=ON
 done
 
 for i in ${GCC_VERSIONS}
