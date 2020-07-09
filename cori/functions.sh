@@ -41,6 +41,18 @@ cleanup_all_timemory()
     done
 }
 
+# initial cleanup
+initial_cleanup()
+{
+    declare SOURCE_DIR=$(realpath ${WORKING_DIR}/timemory-${1})
+    cd ${SOURCE_DIR}
+    git checkout ${BRANCH}
+    git pull
+    git submodule update --recursive --init .
+    rm -rf build-timemory/Linux
+    cd ${WORKING_DIR}
+}
+
 # clean up only target
 cleanup_timemory()
 {
