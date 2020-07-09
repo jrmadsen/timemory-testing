@@ -41,6 +41,7 @@ cleanup_all_timemory()
     done
 }
 
+# clean up only target
 cleanup_timemory()
 {
     declare SOURCE_DIR=$(realpath ${WORKING_DIR}/timemory-${1})
