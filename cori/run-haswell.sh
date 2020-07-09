@@ -7,6 +7,9 @@ WORKING_DIR=$(dirname ${BASH_SOURCE[0]})
 # choose the target platform
 : ${TARGET:="haswell"}
 
+# allow dynamic linking
+export CRAYPE_LINK_TYPE=dynamic
+
 # load the required cross compiler craype
 module unload craype-mic-knl
 module load   craype-${TARGET}
@@ -29,7 +32,7 @@ TIME="120"
 : ${BRANCH:=develop}
 
 # compiler versions
-: ${CLANG_VERSIONS:="8.0.1 9.0.1 10.0.0"}
+# : ${CLANG_VERSIONS:="8.0.1 9.0.1 10.0.0"}
 : ${GCC_VERSIONS:="6.1.0 7.3.0 8.3.0 9.2.0"}
 : ${INTEL_VERSIONS:="16.0.3.210 17.0.2.174 18.0.3.222 19.0.3.199"}
 
@@ -87,8 +90,8 @@ do
     cleanup_timemory ${TARGET}
     module unload intel
     module load intel/${i}
-    export CC=$(which cc)
-    export CXX=$(which CC)
+    export CC=$(which icc)
+    export CXX=$(which icpc)
 
     if [ -z "${CC}" ]; then continue; fi
     if [ -z "${CXX}" ]; then continue; fi
