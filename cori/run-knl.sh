@@ -39,7 +39,7 @@ TIME="120"
 : ${INTEL_VERSIONS:="16.0.3.210 17.0.2.174 18.0.3.222 19.0.3.199"}
 
 # clean up timemory
-cleanup_timemory ${TARGET}
+initial_cleanup ${TARGET}
 
 # load LLVM programming environment
 module unload PrgEnv-intel
